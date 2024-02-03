@@ -39,7 +39,11 @@ function createNewTodoItemElement(task,index){
             //using the === means it matches exactly, including type e.g. strings can't equal numbers
             newTodoTaskTextElement.classList.add("complete") // add a new class to the element of 'complete' so we can style it in css
         }
-        
+        if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
+            newTodoTaskTextElement.classList.add("important") // add a new class to the element of 'complete' so we can style it in css
+        }
+        console.log(todoTasksImportant[index])
+
         const newTodoTaskElement =document.createElement("li"); // creating a list element in html
         newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
         
@@ -51,7 +55,6 @@ function createNewTodoItemElement(task,index){
         
         // alternative:    completeButtonElement.addEventListener('click', function(){}
         completeButtonElement.onclick = function () { // this is referred to as an event listener
-            // console.log("button clicked")
             toggleComplete(index);
         };
 
@@ -62,7 +65,6 @@ function createNewTodoItemElement(task,index){
         newTodoTaskElement.appendChild(importanceButtonElement);
 
         importanceButtonElement.onclick = function () { // this is referred to as an event listener
-            console.log("importance button clicked")
             toggleImportance(index);
         };        
         todoList.appendChild(newTodoTaskElement);
