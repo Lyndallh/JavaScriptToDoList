@@ -5,6 +5,7 @@ let todoTasks = [
     "Bring roosters inside at night",
     "Put roosters back out in morning"
 ];
+let todoTasksDueDate = [];
 let todoTasksStatus = [false, true, false, true, false]; // creating ability to assigning status 
 let todoTasksImportant = [false, true, true, true, false]
 const todoList = document.getElementById('todo-list');
@@ -30,6 +31,7 @@ function updateTodoList(){
         todoList.appendChild(newTodoTaskElement);
     }
 }
+
 function createNewTodoItemElement(task,index){
 
         const newTodoTaskTextElement = document.createElement("p"); // creating new element 'p' in html
@@ -42,6 +44,7 @@ function createNewTodoItemElement(task,index){
         if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
             newTodoTaskTextElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
         }
+
         console.log(newTodoTaskTextElement.classList)
 
         const newTodoTaskElement =document.createElement("li"); // creating a list element in html
@@ -58,7 +61,7 @@ function createNewTodoItemElement(task,index){
             toggleComplete(index);
         };
 
-        const importanceButtonElement = document.createElement("input");
+            const importanceButtonElement = document.createElement("input");
         importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
         importanceButtonElement.value = "Important";
         
@@ -68,8 +71,19 @@ function createNewTodoItemElement(task,index){
             toggleImportance(index);
         };        
         todoList.appendChild(newTodoTaskElement);
+
+        
         return newTodoTaskElement;
     }
+
+function createNewTodoItemDateDueElement(dueDate,index){
+    const newTodoTaskTextElement = document.createElement("p"); // creating new element 'p' in html
+    newTodoTaskTextElement.innerText = task;
+    
+    const dueDateInputElement = document.createElement("input");
+    dueDateInputElement.type = "date"; 
+    dueDateInputElement.value = "Important";
+}
 
 function toggleComplete(index) {
     if(todoTasksStatus[index] ===false) {
