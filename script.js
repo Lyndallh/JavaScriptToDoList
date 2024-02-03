@@ -6,6 +6,7 @@ let todoTasks = [
     "Put roosters back out in morning"
 ];
 let todoTasksStatus = [false, true, false, true, false]; // creating ability to assigning status 
+let todoTasksImportant = [false, true, true, true, false]
 const todoList = document.getElementById('todo-list');
 
 updateTodoList();
@@ -19,9 +20,6 @@ function addTask() {
         updateTodoList();
     }
 }
-// for (const [index, task] of todoTasks.entries()){
-//     const newTodoTaskTextElement = createNewTodoItemElement (task,index);
-// }
 
 function updateTodoList(){
     todoList.innerText = '';
@@ -53,22 +51,38 @@ function createNewTodoItemElement(task,index){
         
         // alternative:    completeButtonElement.addEventListener('click', function(){}
         completeButtonElement.onclick = function () { // this is referred to as an event listener
-            console.log("button clicked")
+            // console.log("button clicked")
             toggleComplete(index);
         };
+
+        const importanceButtonElement = document.createElement("input");
+        importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+        importanceButtonElement.value = "Important";
         
+        newTodoTaskElement.appendChild(importanceButtonElement);
+
+        importanceButtonElement.onclick = function () { // this is referred to as an event listener
+            console.log("importance button clicked")
+            toggleImportance(index);
+        };        
         todoList.appendChild(newTodoTaskElement);
         return newTodoTaskElement;
     }
 
 function toggleComplete(index) {
-    console.log("toggle function")
     if(todoTasksStatus[index] ===false) {
         todoTasksStatus[index] = true;
     }   else {
         todoTasksStatus[index] = false;
     }
-console.log(todoTasksStatus);
     updateTodoList();
 }
 
+function toggleImportance(index) {
+    if(todoTasksImportant[index] ===false) {
+        todoTasksImportant[index] = true;
+    }   else {
+        todoTasksImportant[index] = false;
+    }
+    updateTodoList();
+}
