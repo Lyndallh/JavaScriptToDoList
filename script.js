@@ -40,9 +40,9 @@ function createNewTodoItemElement(task,index){
             newTodoTaskTextElement.classList.add("complete") // add a new class to the element of 'complete' so we can style it in css
         }
         if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
-            newTodoTaskTextElement.classList.add("important") // add a new class to the element of 'complete' so we can style it in css
+            newTodoTaskTextElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
         }
-        console.log(todoTasksImportant[index])
+        console.log(newTodoTaskTextElement.classList)
 
         const newTodoTaskElement =document.createElement("li"); // creating a list element in html
         newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 

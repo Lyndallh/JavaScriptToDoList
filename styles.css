@@ -54,5 +54,5 @@ input[type="button"] {
 }
 
 .important {
-    background:#fff
+    font-weight: bold;
 }
