@@ -31,7 +31,6 @@ function addTask() {
     }
 }
 
-
 function updateTodoList(){
     todoList.innerText = '';
     for (const [index, task] of todoTasks.entries()) { // get the task and index (where it is in the array) with the index we can make a conditional statement
@@ -43,7 +42,8 @@ function updateTodoList(){
 function createNewTodoItemElement(task,index){
         const newTodoTaskTextElement = document.createElement("p"); // creating new element 'p' in html
         newTodoTaskTextElement.innerText = task;
-        
+
+// ---------ASSIGNING CLASSES FOR STYLING -----------        
         if (todoTasksStatus[index]=== true) { // if the item at the same index has the status of true, 
             //using the === means it matches exactly, including type e.g. strings can't equal numbers
             newTodoTaskTextElement.classList.add("complete") // add a new class to the element of 'complete' so we can style it in css
@@ -59,10 +59,11 @@ function createNewTodoItemElement(task,index){
             new Date(todoTasksDueDate[index]) < new Date()) { // if the item at the same index has the status of true, 
                 newTodoTaskTextElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
         }
+//----------CREATING THE LIST ----------------------
+const newTodoTaskElement =document.createElement("li"); // creating a list element in html
+newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
 
-        const newTodoTaskElement =document.createElement("li"); // creating a list element in html
-        newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
-        
+    //----------COMPLETE BUTTON----------------------
         const completeButtonElement = document.createElement("input");
         completeButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
         completeButtonElement.value = "Completed";       
@@ -72,7 +73,7 @@ function createNewTodoItemElement(task,index){
         completeButtonElement.onclick = function () { // this is referred to as an event listener
             toggleComplete(index);
         };
-
+    //------------IMPORTANCE BUTTON -----------------
         const importanceButtonElement = document.createElement("input");
         importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
         importanceButtonElement.value = "Important";       
@@ -81,21 +82,16 @@ function createNewTodoItemElement(task,index){
         importanceButtonElement.onclick = function () { // this is referred to as an event listener
             toggleImportance(index);
         };
-
+    //--------------DUE DATE------------------------
         const NewDueDateElement = document.createElement("p");
         NewDueDateElement.type = "date";
         let newDueDate = new Date(todoTasksDueDate[index]).toLocaleDateString();
         NewDueDateElement.innerText = (newDueDate);       
         newTodoTaskElement.appendChild(NewDueDateElement);
-
-        // console.log(newDueDate)
-        // console.log(NewDueDateElement.type)
-        // console.log(newTodoTaskElement)
         
         todoList.appendChild(newTodoTaskElement);
         return newTodoTaskElement;
     }
-
 
 function toggleComplete(index) {
     if(todoTasksStatus[index] ===false) {
