@@ -5,7 +5,7 @@ let todoTasks = [
     "Bring roosters inside at night",
     "Put roosters back out in morning"
 ];
-let todoTasksDueDate = [Date.now()-1,Date.now(),Date.now()-1,Date.now(),Date.now()-1];
+let todoTasksDueDate = [new Date(),new Date(),new Date(),new Date(),new Date()];
 let todoTasksStatus = [false, true, false, true, false]; // creating ability to assigning status 
 let todoTasksImportant = [false, true, true, true, false]
 
@@ -18,12 +18,15 @@ updateTodoList();
 function addTask() {
     const newTask = document.getElementById('new-task-text');
     const newTaskDueDate = document.getElementById('new-task-due-date');
+    const newTaskDueDateLocalFomat= new Date(newTaskDueDate.value);
+
 
     if (newTask.value.length >0){
         todoTasks.push(newTask.value);
-        todoTasksDueDate.push(newTaskDueDate.value);
+        todoTasksDueDate.push(newTaskDueDateLocalFomat);
         todoTasksStatus.push(false);
-        newTask.value = ""; 
+        newTask.value = "";
+        newTaskDueDate.value = ""; 
         updateTodoList();
     }
 }
@@ -31,8 +34,6 @@ function addTask() {
 
 function updateTodoList(){
     todoList.innerText = '';
-    // createNewTodoTaskElement(task,index){
-// const todoList = document.getElementById("todo-list");
     for (const [index, task] of todoTasks.entries()) { // get the task and index (where it is in the array) with the index we can make a conditional statement
         const newTodoTaskElement = createNewTodoItemElement(task,index);
         todoList.appendChild(newTodoTaskElement);
@@ -50,19 +51,21 @@ function createNewTodoItemElement(task,index){
         if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
             newTodoTaskTextElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
         }
-        if (todoTasksDueDate[index]>= Date.now()) { // if the item at the same index has the status of true, 
-            newTodoTaskTextElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
+        if (
+            todoTasksDueDate[index].toDateString() === new Date().toDateString()) { // if the item at the same index has the status of true, 
+            newTodoTaskTextElement.classList.add("due_today") // add a new class to the element of 'duedate' so we can style it in css
+        } 
+        else if (
+            new Date(todoTasksDueDate[index]) < new Date()) { // if the item at the same index has the status of true, 
+                newTodoTaskTextElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
         }
-
-        console.log(newTodoTaskTextElement.classList)
 
         const newTodoTaskElement =document.createElement("li"); // creating a list element in html
         newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
         
         const completeButtonElement = document.createElement("input");
         completeButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        completeButtonElement.value = "Completed";
-        
+        completeButtonElement.value = "Completed";       
         newTodoTaskElement.appendChild(completeButtonElement);
         
         // alternative:    completeButtonElement.addEventListener('click', function(){}
@@ -72,24 +75,24 @@ function createNewTodoItemElement(task,index){
 
         const importanceButtonElement = document.createElement("input");
         importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        importanceButtonElement.value = "Important";
-        
+        importanceButtonElement.value = "Important";       
         newTodoTaskElement.appendChild(importanceButtonElement);
 
         importanceButtonElement.onclick = function () { // this is referred to as an event listener
             toggleImportance(index);
-        };        
-        todoList.appendChild(newTodoTaskElement);
+        };
 
-        const dueDateInputElement = document.createElement("input");
-        dueDateInputElement.type = "text"; 
-        dueDateInputElement.value = Date(todoTasksDueDate);
-        
-        newTodoTaskElement.appendChild(dueDateInputElement);
-       
-        todoList.appendChild(newTodoTaskElement);
+        const NewDueDateElement = document.createElement("p");
+        NewDueDateElement.type = "date";
+        let newDueDate = new Date(todoTasksDueDate[index]).toLocaleDateString();
+        NewDueDateElement.innerText = (newDueDate);       
+        newTodoTaskElement.appendChild(NewDueDateElement);
 
+        // console.log(newDueDate)
+        // console.log(NewDueDateElement.type)
+        // console.log(newTodoTaskElement)
         
+        todoList.appendChild(newTodoTaskElement);
         return newTodoTaskElement;
     }
 
