@@ -61,11 +61,11 @@ function createNewTodoItemElement(task,index){
         if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
             newTodoTaskElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
         }
-        // if (
-        //     todoTasksDueDate[index].toDateString() === new Date().toDateString()) { // if the item at the same index has the status of true, 
-        //     newTodoTaskElement.classList.add("due_today") // add a new class to the element of 'duedate' so we can style it in css
-        // } 
-        // else 
+        if (
+            todoTasksDueDate[index].toDateString() === new Date().toDateString()) { // if the item at the same index has the status of true, 
+            newTodoTaskElement.classList.add("due_today") // add a new class to the element of 'duedate' so we can style it in css
+        } 
+        else 
         if (
             new Date(todoTasksDueDate[index]) < new Date()) { // if the item at the same index has the status of true, 
                 newTodoTaskElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
