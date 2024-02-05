@@ -15,7 +15,7 @@ ul {
 li {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    border: 2px solid #b30049;
+    border: 2px solid teal;
     gap: 5px;
     padding: 2px;
     margin: 2px;
@@ -35,8 +35,10 @@ date{
 #new-task-input {
     display: flex;
     padding: 10px;
+    max-width: 35rem;
     justify-content: space-between;
     background-color: #fff;
+    font-size: 1.2rem;
 }
 
 input {
@@ -48,7 +50,7 @@ input {
 input[type="text"] {
     flex-basis: 80%;
 }
-input[type="date"] {
+#new-task-due-date {
     flex-basis: 50%;
 }
 input[type="button"]#new-task-button {
@@ -58,6 +60,11 @@ input[type="button"]#new-task-button {
 input[type="button"] {
     background: #dcdcdc;
     color: black;
+}
+
+#due-date-label{
+align-self: center;
+flex-basis: 20%;
 }
 
 .complete [type="button"].done-button{
