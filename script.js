@@ -140,22 +140,24 @@ function toggleImportance(index) {
 
 function move (event, index, movement){
     const fromIndex = parseInt(event.target.getAttribute("data-index"));
+    
+    // don't move if trying to move past the boundaries
+    if((fromIndex === 0 && movement < 0) || (fromIndex === todoTasks.length && movement > 0) ){
+        // toIndex = fromIndex;
+        return
+    }
+    toIndex = fromIndex + parseInt(movement);
+
     let todoTasksElement = todoTasks[fromIndex];
     let todoTasksDueDateElement = todoTasksDueDate[fromIndex];
     let todoTasksStatusElement = todoTasksStatus[fromIndex];
     let todoTasksImportantElement = todoTasksImportant[fromIndex];
-
-
+    
     todoTasks.splice(fromIndex, 1);
     todoTasksDueDate.splice(fromIndex, 1);
     todoTasksStatus.splice(fromIndex, 1);
     todoTasksImportant.splice(fromIndex, 1);
 
-        if((fromIndex === 0 && movement < 0) || (fromIndex === todoTasks.length && movement > 0) ){
-        toIndex = fromIndex;
-    }   else {
-        toIndex = fromIndex + parseInt(movement);
-    }
     todoTasks.splice(toIndex, 0, todoTasksElement);
     todoTasksDueDate.splice(toIndex, 0, todoTasksDueDateElement);
     todoTasksStatus.splice(toIndex, 0, todoTasksStatusElement);
