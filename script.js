@@ -45,81 +45,88 @@ function updateTodoList(){
 }
 
 function createNewTodoItemElement(task,index){
-        const newTodoTaskTextElement = document.createElement("p"); // creating new element 'p' in html
-        newTodoTaskTextElement.innerText = task;
-
-        
-        //----------CREATING THE LIST ----------------------
-        const newTodoTaskElement =document.createElement("li"); // creating a list element in html
-        newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
-        
-        // ---------ASSIGNING CLASSES FOR STYLING -----------        
-        if (todoTasksStatus[index]=== true) { // if the item at the same index has the status of true, 
-            //using the === means it matches exactly, including type e.g. strings can't equal numbers
-            newTodoTaskElement.classList.add("complete") // add a new class to the element of 'complete' so we can style it in css
+    
+    
+//----------CREATING THE LIST ----------------------
+    const newTodoTaskTextElement = document.createElement("p"); // creating new element 'p' in html
+    newTodoTaskTextElement.classList.add("task");
+    newTodoTaskTextElement.innerText = task;
+    const newTodoTaskElement =document.createElement("li"); // creating a list element in html
+    newTodoTaskElement.appendChild(newTodoTaskTextElement); // putting the todo list into the list ("li" html tag) that was created 
+    
+// ---------ASSIGNING CLASSES FOR STYLING -----------        
+    if (todoTasksStatus[index]=== true) { // if the item at the same index has the status of true, 
+    //using the === means it matches exactly, including type e.g. strings can't equal numbers
+    newTodoTaskElement.classList.add("complete") // add a new class to the element of 'complete' so we can style it in css
+    }
+    if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
+    newTodoTaskElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
+    }
+    if (
+    todoTasksDueDate[index].toDateString() === new Date().toDateString()) { // if the item at the same index has the status of true, 
+        newTodoTaskElement.classList.add("due_today") // add a new class to the element of 'duedate' so we can style it in css
+    } 
+    else 
+    if (
+        new Date(todoTasksDueDate[index]) < new Date()) { // if the item at the same index has the status of true, 
+            newTodoTaskElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
         }
-        if (todoTasksImportant[index]=== true) { // if the item at the same index has the status of true, 
-            newTodoTaskElement.classList.add("important") // add a new class to the element of 'important' so we can style it in css
-        }
-        if (
-            todoTasksDueDate[index].toDateString() === new Date().toDateString()) { // if the item at the same index has the status of true, 
-            newTodoTaskElement.classList.add("due_today") // add a new class to the element of 'duedate' so we can style it in css
-        } 
-        else 
-        if (
-            new Date(todoTasksDueDate[index]) < new Date()) { // if the item at the same index has the status of true, 
-                newTodoTaskElement.classList.add("overdue") // add a new class to the element of 'duedate' so we can style it in css
-        }
-        //----------COMPLETE BUTTON----------------------
-        const completeButtonElement = document.createElement("input");
-        completeButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        completeButtonElement.value = "Completed";       
-        newTodoTaskElement.appendChild(completeButtonElement);
-        
-        // alternative:    completeButtonElement.addEventListener('click', function(){}
-        completeButtonElement.onclick = function () { // this is referred to as an event listener
-            toggleComplete(index);
-        };
-    //------------IMPORTANCE BUTTON -----------------
-        const importanceButtonElement = document.createElement("input");
-        importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        importanceButtonElement.value = "Important";       
-        newTodoTaskElement.appendChild(importanceButtonElement);
-
-        importanceButtonElement.onclick = function () { // this is referred to as an event listener
-            toggleImportance(index);
-        };
-    //--------------DUE DATE------------------------
-        const NewDueDateElement = document.createElement("p");
+        //--------------DUE DATE------------------------
+        const NewDueDateElement = document.createElement("date");
         NewDueDateElement.type = "date";
         let newDueDate = new Date(todoTasksDueDate[index]).toLocaleDateString();
         NewDueDateElement.innerText = (newDueDate);       
         newTodoTaskElement.appendChild(NewDueDateElement);
-
-    //------------UP ARROW BUTTON -----------------
-        const upButtonElement = document.createElement("input");
-        upButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        upButtonElement.value = "Up";
-        newTodoTaskElement.appendChild(upButtonElement);
-        upButtonElement.dataset.index = index;
-        upButtonElement.onclick = function (event, index, movement = -1) { // this is referred to as an event listener
-            move(event,index,movement);
+        //------------IMPORTANCE BUTTON -----------------
+        const importanceButtonElement = document.createElement("input");
+        importanceButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+        importanceButtonElement.value = "Important";
+        importanceButtonElement.classList.add("importance-button");
+        
+        newTodoTaskElement.appendChild(importanceButtonElement);
+        
+        importanceButtonElement.onclick = function () { // this is referred to as an event listener
+            toggleImportance(index);
         };
-    //------------DOWN ARROW BUTTON -----------------
-        const downButtonElement = document.createElement("input");
-        downButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        downButtonElement.value = "Down";
-        newTodoTaskElement.appendChild(downButtonElement);
-        downButtonElement.dataset.index = index;
-        downButtonElement.onclick = function (event, index, movement = 1) { // this is referred to as an event listener
-            move(event,index, movement);
-        };  
+        
+        //----------COMPLETE BUTTON----------------------
+           const completeButtonElement = document.createElement("input");
+           completeButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+           completeButtonElement.value = "Done";
+           completeButtonElement.classList.add("done-button");
+           
+           newTodoTaskElement.appendChild(completeButtonElement);
+           
+           // alternative:    completeButtonElement.addEventListener('click', function(){}
+           completeButtonElement.onclick = function () { // this is referred to as an event listener
+               toggleComplete(index);
+           };
+        //------------UP ARROW BUTTON -----------------
+    const upButtonElement = document.createElement("Span");
+    upButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+    upButtonElement.innerText = "arrow_upward";
+    upButtonElement.classList.add("material-symbols-outlined");
+    newTodoTaskElement.appendChild(upButtonElement);
+    upButtonElement.dataset.index = index;
+    upButtonElement.onclick = function (event, index, movement = -1) { // this is referred to as an event listener
+        move(event,index,movement);
+    };
+//------------DOWN ARROW BUTTON -----------------
+    const downButtonElement = document.createElement("Span");
+    downButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+    downButtonElement.innerText = "arrow_downward";
+    downButtonElement.classList.add("material-symbols-outlined");
+    newTodoTaskElement.appendChild(downButtonElement);
+    downButtonElement.dataset.index = index;
+    downButtonElement.onclick = function (event, index, movement = 1) { // this is referred to as an event listener
+        move(event,index, movement);
+    };  
 
 
-        todoList.appendChild(newTodoTaskElement);
-        return newTodoTaskElement;
-    }
-
+    todoList.appendChild(newTodoTaskElement);
+    return newTodoTaskElement;
+}
+        
 function toggleComplete(index) {
     if(todoTasksStatus[index] ===false) {
         todoTasksStatus[index] = true;

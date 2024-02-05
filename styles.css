@@ -1,3 +1,6 @@
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/arrow-up-r.css');
+@import url('https://unpkg.com/css.gg@2.0.0/icons/css/arrow-down-r.css');
+
 body {
     background-color: #070d0d;
     font-family: sans-serif;
@@ -10,11 +13,10 @@ ul {
 }
 
 li {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     border: 2px solid #b30049;
+    gap: 5px;
     padding: 2px;
     margin: 2px;
     color: #070d0d;
@@ -24,12 +26,15 @@ li {
 p {
     margin: 2px;
     color: #070d0d;
-
+    width: 20rem;
+}
+date{
+    width: 8rem;
 }
 
 #new-task-input {
     display: flex;
-    width: 100%;
+    padding: 10px;
     justify-content: space-between;
     background-color: #fff;
 }
@@ -51,31 +56,41 @@ input[type="button"]#new-task-button {
 }
 
 input[type="button"] {
-    background: #b30049;
+    background: #dcdcdc;
+    color: black;
+}
+
+.complete [type="button"].done-button{
+    background: teal;
     color: #fff;
 }
 
-.complete {
-    text-decoration: line-through;
-    color: gray;
-    background-color: green;
+.complete date{
+    color: rgba(0, 255, 30, 0.552);
+}
+.overdue date{
+    color: red;
 }
 
-.important {
+.due_today date{
+    color: orange;
+}
+
+.complete p.task, .complete date{
+    color: #dcdcdc;
+}
+
+.important .task{
+    text-decoration: underline;
     font-weight: bold;
-}
-
-.overdue {
-    font-weight: bold;
-    background-color: red;
-}
-
-.due_today {
-    background-color: orange;
-}
-.due_today.complete, .overdue.complete {
-    color: gray;
-    text-decoration: line-through;
-    background-color: white;
 
 }
+
+.important [type="button"].importance-button {
+    background: teal;
+    color: #fff;
+}
+
+
+
+
