@@ -11,7 +11,8 @@ ul {
 
 li {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     border: 2px solid #b30049;
     padding: 2px;
@@ -23,6 +24,7 @@ li {
 p {
     margin: 2px;
     color: #070d0d;
+
 }
 
 #new-task-input {
@@ -55,8 +57,25 @@ input[type="button"] {
 
 .complete {
     text-decoration: line-through;
+    color: gray;
+    background-color: green;
 }
 
 .important {
     font-weight: bold;
+}
+
+.overdue {
+    font-weight: bold;
+    background-color: red;
+}
+
+.due_today {
+    background-color: orange;
+}
+.due_today.complete, .overdue.complete {
+    color: gray;
+    text-decoration: line-through;
+    background-color: white;
+
 }

@@ -8,6 +8,11 @@ An activity from Day 2 of JavaScript She Codes Plus
 2. [x] Add a field for due date.
         [x] I added status for overdue
 3. [ ] Add arrows for moving items up/down the list.
+   1. [x] add up arrow
+   2. [ ] add down arrow
+   3. [ ] add up function - attempted, unfinished
+   4. [ ] add down function
+   5. [ ] include other arrays in both functions
 
 #### Super bonus
-4. [ ] Categorise items by colour.
+4. [x] Categorise items by colour.
