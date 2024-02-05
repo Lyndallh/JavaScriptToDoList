@@ -99,12 +99,22 @@ function createNewTodoItemElement(task,index){
     //------------UP ARROW BUTTON -----------------
         const upButtonElement = document.createElement("input");
         upButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
-        upButtonElement.value = "Up";       
+        upButtonElement.value = "Up";
         newTodoTaskElement.appendChild(upButtonElement);
         upButtonElement.dataset.index = index;
-        upButtonElement.onclick = function (event) { // this is referred to as an event listener
-            moveUp(event,index);
+        upButtonElement.onclick = function (event, index, movement = -1) { // this is referred to as an event listener
+            move(event,index,movement);
         };
+    //------------DOWN ARROW BUTTON -----------------
+        const downButtonElement = document.createElement("input");
+        downButtonElement.type = "button"; // adding a button in JS is not best practice in real life, this is just for practicing DOMS
+        downButtonElement.value = "Down";
+        newTodoTaskElement.appendChild(downButtonElement);
+        downButtonElement.dataset.index = index;
+        downButtonElement.onclick = function (event, index, movement = 1) { // this is referred to as an event listener
+            move(event,index, movement);
+        };  
+
 
         todoList.appendChild(newTodoTaskElement);
         return newTodoTaskElement;
@@ -128,32 +138,28 @@ function toggleImportance(index) {
     updateTodoList();
 }
 
-function moveUp (event){
+function move (event, index, movement){
     const fromIndex = parseInt(event.target.getAttribute("data-index"));
     let todoTasksElement = todoTasks[fromIndex];
     let todoTasksDueDateElement = todoTasksDueDate[fromIndex];
     let todoTasksStatusElement = todoTasksStatus[fromIndex];
     let todoTasksImportantElement = todoTasksImportant[fromIndex];
 
-    console.log("::"+todoTasks);
-    console.log("::"+todoTasksDueDate);
 
     todoTasks.splice(fromIndex, 1);
     todoTasksDueDate.splice(fromIndex, 1);
     todoTasksStatus.splice(fromIndex, 1);
     todoTasksImportant.splice(fromIndex, 1);
 
-        if(fromIndex === 0){
+        if((fromIndex === 0 && movement < 0) || (fromIndex === todoTasks.length && movement > 0) ){
         toIndex = fromIndex;
     }   else {
-        toIndex = fromIndex - 1;
+        toIndex = fromIndex + parseInt(movement);
     }
     todoTasks.splice(toIndex, 0, todoTasksElement);
     todoTasksDueDate.splice(toIndex, 0, todoTasksDueDateElement);
     todoTasksStatus.splice(toIndex, 0, todoTasksStatusElement);
     todoTasksImportant.splice(toIndex, 0, todoTasksImportantElement);
-    console.log("::"+todoTasks);
-    console.log("::"+todoTasksDueDate);
 
     updateTodoList();
 }
